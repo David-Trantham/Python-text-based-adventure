@@ -17,33 +17,50 @@ def find_room(room_id):
 def check_room_at_location(room_location):
     return room_map[room_location[0]][room_location[1]]
 
-def move(
+def move(direction):
+    global current_room_location
+    global current_room
+    new_room_location = (-1, -1)
+    new_room = 0
     try:
         match direction:
-            case "Forward":
-            case "Back":
-            case "Left":
-            case "Right":
-            case default:
-        if newroom == 0: Exception
-        print(room_location[1])
+            case "Forward": 
+                new_room_location = (current_room_location[0]-1, current_room_location[1])
+                new_room = check_room_at_location(new_room_location)
+            case "Back": 
+                new_room_location = (current_room_location[0]+1, current_room_location[1])
+                new_room = check_room_at_location(new_room_location)
+            case "Left": 
+                new_room_location = (current_room_location[0], current_room_location[1]-1)
+                new_room = check_room_at_location(new_room_location)
+            case "Right": 
+                new_room_location = (current_room_location[0], current_room_location[1]+1)
+                new_room = check_room_at_location(new_room_location)
+        if new_room == 0: raise ValueError
     except:
-        print("Nope, can't move that way!")
-
+        print("Nope, can't move that way! Better try something else...\n")
+        return
+    else:
+        current_room_location = new_room_location
+        current_room = new_room
+        return
+    
 def main():
-    print(find_room(1))
-    print(room_map[5][3])
-    print(check_room_at_location(current_room_location))
-    # Should move us to room 4
-    move("")
+    move("Back")
     print(current_room)
-    player_name = input("Please enter your name: ")
+    move("Forward")
+    print(current_room)
+    move("Left")
+    print(current_room)
+    move("Right")
+    print(current_room)
+    # player_name = input("Please enter your name: ")
 
-    default_directions = ["Left", "Right", "Forward", "Back"]
-    rooms = {0: default_directions}
+    # default_directions = ["Left", "Right", "Forward", "Back"]
+    # rooms = {0: default_directions}
 
-    room_number = 0
-    player_input = ""
+    # room_number = 0
+    # player_input = ""
 
 #After initializing global variables, start the program at the main function
 if __name__ == '__main__':
